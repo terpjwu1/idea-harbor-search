@@ -3,6 +3,7 @@ import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { useNavigate } from "react-router-dom";
 import {
   Carousel,
   CarouselContent,
@@ -14,6 +15,7 @@ import {
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,10 +26,7 @@ const Index = () => {
       });
       return;
     }
-    toast({
-      title: "Searching...",
-      description: `Looking for business ideas related to: ${searchQuery}`,
-    });
+    navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
   };
 
   const recommendations = [
