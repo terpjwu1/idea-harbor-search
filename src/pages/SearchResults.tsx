@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search } from "lucide-react";
+import { Search, ArrowLeft } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
@@ -27,14 +27,21 @@ const SearchResults = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-primary/10">
       <div className="container mx-auto px-4 py-4">
-        {/* Global Search Bar */}
+        {/* Header with Back Button and Search */}
         <div className="flex justify-between items-center mb-8">
-          <button 
-            onClick={() => navigate('/')} 
-            className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent"
-          >
-            IdeaHarbor
-          </button>
+          <div className="flex items-center gap-4">
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => navigate('/')}
+              className="hover:bg-primary/10"
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </Button>
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+              IdeaHarbor
+            </h1>
+          </div>
           <form onSubmit={handleSearch} className="relative w-96">
             <Input
               type="text"
@@ -55,9 +62,9 @@ const SearchResults = () => {
 
         {/* Search Results */}
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-2xl font-semibold mb-6">
+          <h2 className="text-2xl font-semibold mb-6">
             Search Results for "{initialQuery}"
-          </h1>
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Placeholder results - you can replace these with actual search results */}
             {Array.from({ length: 6 }).map((_, index) => (
