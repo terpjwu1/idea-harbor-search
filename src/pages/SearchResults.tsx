@@ -5,6 +5,54 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { useSearchParams, useNavigate } from "react-router-dom";
 
+const generateBusinessIdeas = (searchTerm: string) => {
+  // Base categories that we'll use to generate ideas
+  const categories = ["Technology", "E-commerce", "Health & Wellness", "Education", "Sustainability", "Food & Beverage"];
+  const baseRevenues = ["5K-20K", "10K-40K", "15K-60K", "20K-80K", "25K-100K"];
+  
+  // Generate ideas based on the search term
+  const ideas = [
+    {
+      title: `${searchTerm} Consulting Platform`,
+      category: "Technology",
+      description: `Online platform providing expert ${searchTerm} consulting services to businesses and individuals`,
+      revenue: `${baseRevenues[0]}/month`,
+    },
+    {
+      title: `${searchTerm} Marketplace`,
+      category: "E-commerce",
+      description: `Digital marketplace connecting ${searchTerm} providers with customers`,
+      revenue: `${baseRevenues[1]}/month`,
+    },
+    {
+      title: `${searchTerm} Education Service`,
+      category: "Education",
+      description: `Online courses and training programs focused on ${searchTerm}`,
+      revenue: `${baseRevenues[2]}/month`,
+    },
+    {
+      title: `${searchTerm} Analytics Software`,
+      category: "Technology",
+      description: `SaaS platform providing analytics and insights for the ${searchTerm} industry`,
+      revenue: `${baseRevenues[3]}/month`,
+    },
+    {
+      title: `${searchTerm} Mobile App`,
+      category: "Technology",
+      description: `Mobile application helping users with their ${searchTerm} needs`,
+      revenue: `${baseRevenues[4]}/month`,
+    },
+    {
+      title: `${searchTerm} Subscription Box`,
+      category: "E-commerce",
+      description: `Monthly subscription box service delivering curated ${searchTerm} products`,
+      revenue: `${baseRevenues[0]}/month`,
+    },
+  ];
+
+  return ideas;
+};
+
 const SearchResults = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -23,6 +71,8 @@ const SearchResults = () => {
     }
     setSearchParams({ q: searchQuery });
   };
+
+  const businessIdeas = generateBusinessIdeas(initialQuery);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-primary/10">
@@ -66,22 +116,17 @@ const SearchResults = () => {
             Search Results for "{initialQuery}"
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Placeholder results - you can replace these with actual search results */}
-            {Array.from({ length: 6 }).map((_, index) => (
+            {businessIdeas.map((idea, index) => (
               <div
                 key={index}
                 className="p-6 rounded-xl bg-white/50 backdrop-blur-sm border border-primary/10 hover:border-primary/30 transition-all hover:shadow-lg"
               >
-                <h3 className="text-xl font-semibold mb-2">
-                  Business Idea {index + 1}
-                </h3>
+                <h3 className="text-xl font-semibold mb-2">{idea.title}</h3>
                 <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-sm mb-3">
-                  Category
+                  {idea.category}
                 </span>
-                <p className="text-muted-foreground mb-3">
-                  Description of the business idea goes here...
-                </p>
-                <p className="font-semibold text-primary">$10K-40K/month</p>
+                <p className="text-muted-foreground mb-3">{idea.description}</p>
+                <p className="font-semibold text-primary">${idea.revenue}</p>
               </div>
             ))}
           </div>
