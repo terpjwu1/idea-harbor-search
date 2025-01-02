@@ -3,6 +3,13 @@ import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -22,6 +29,39 @@ const Index = () => {
       description: `Looking for business ideas related to: ${searchQuery}`,
     });
   };
+
+  const recommendations = [
+    {
+      title: "AI Writing Assistant",
+      category: "Technology",
+      description: "Create an AI-powered writing tool for content creators",
+      revenue: "$5K-20K/month",
+    },
+    {
+      title: "Eco-Friendly Food Packaging",
+      category: "Sustainability",
+      description: "Biodegradable packaging solutions for restaurants",
+      revenue: "$10K-50K/month",
+    },
+    {
+      title: "Virtual Fitness Platform",
+      category: "Health & Wellness",
+      description: "Online personal training and wellness coaching",
+      revenue: "$8K-30K/month",
+    },
+    {
+      title: "Local Food Delivery",
+      category: "Food & Beverage",
+      description: "Connect local restaurants with hungry customers",
+      revenue: "$15K-60K/month",
+    },
+    {
+      title: "Digital Marketing Agency",
+      category: "Marketing",
+      description: "Help small businesses grow their online presence",
+      revenue: "$10K-40K/month",
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 to-primary/10">
@@ -64,6 +104,34 @@ const Index = () => {
                 {term}
               </button>
             ))}
+          </div>
+
+          <div className="mt-16 max-w-5xl mx-auto">
+            <h2 className="text-2xl font-semibold mb-6">Recommended Business Ideas</h2>
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent>
+                {recommendations.map((idea, index) => (
+                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                    <div className="p-6 rounded-xl bg-white/50 backdrop-blur-sm border border-primary/10 hover:border-primary/30 transition-all hover:shadow-lg">
+                      <h3 className="text-xl font-semibold mb-2">{idea.title}</h3>
+                      <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-sm mb-3">
+                        {idea.category}
+                      </span>
+                      <p className="text-muted-foreground mb-3">{idea.description}</p>
+                      <p className="font-semibold text-primary">{idea.revenue}</p>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
           </div>
         </div>
 
